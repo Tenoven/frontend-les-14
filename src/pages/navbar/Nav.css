@@ -1,0 +1,12 @@
+.active-menu-link {
+    color: #38E991;
+    }
+
+.default-menu-link {
+    color: #FFFFFF;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
