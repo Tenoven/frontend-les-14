@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import "./newpost.css"
 import {calcReadTime} from "../../helpers/readtime.jsx";
+import axios from "axios";
 
 function Newpost(props) {
 
@@ -26,12 +27,28 @@ function Newpost(props) {
             [changedFieldName]: e.target.value,
         })
     }
-function handleSubmit(e) {
+async function handleSubmit(e) {
     formState.readTime = calcReadTime(formState.content)
         const date = new Date()
         formState.created = date.toISOString()
     e.preventDefault()
     console.log(formState)
+    try {
+        const response = await axios.post('http://localhost:3000/posts',
+            {
+                "title": formState.title,
+                "subtitle": formState.subtitle,
+                "content": formState.content,
+                "author": formState.author,
+                "created": formState.created,
+                "readTime": formState.readTime,
+                "comments": formState.comments,
+                "shares": formState.shares,
+            })
+    } catch (e) {
+        console.error(e)
+        alert("Something went wrong while sending the info.\nTry again.")
+    }
 }
 
     return (
